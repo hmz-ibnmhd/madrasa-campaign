@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Poster Generator</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"/>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="poster.png" class="posterPreview">
+
+<h3>Create Personalised Poster</h3>
+
+
+<input type="text" id="name" maxlength="20" placeholder="Enter Name">
+
+<button class="btn" onclick="openCrop()">CREATE</button>
+
+</div>
+
+
+<!-- Crop Modal -->
+
+<div class="modal" id="cropModal">
+
+<div class="modalContent">
+
+<h3>Select and Crop Image</h3>
+
+<input type="file" id="fileInput">
+
+<img id="cropImage">
+
+<div class="modalBtns">
+
+<button onclick="closeCrop()">Cancel</button>
+
+<button onclick="generatePoster()">Crop</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="result" id="resultPage">
+
+<img id="resultPoster">
+
+<button onclick="downloadPoster()" class="btn">Download Poster</button>
+
+<button onclick="location.reload()" class="btn secondary">Create Again</button>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
