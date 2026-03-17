@@ -57,13 +57,13 @@ canvas.height = poster.height
 
 ctx.drawImage(poster,0,0)
 
-let width = 382 
-let height = 515
+let width = 385 
+let height = 516
 
 /* CENTER POSITION */
 
-let x = 659
-let y = 421
+let x = 625
+let y = 270
 
 
 
