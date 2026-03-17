@@ -42,17 +42,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"/>
 
 </div>
 
-<input type="file" id="fileInput">
+<input type="file" id="fileInput" accept="image/*" capture="environment">
 
 <img id="cropImage">
 
 
 <div class="modalBtns">
-    <button onclick="generatePoster()" class="topCropBtn">Crop</button>
 
 <button onclick="closeCrop()">Cancel</button>
 
-<button onclick="generatePoster()">Crop</button>
+<button id="cropBtn" onclick="generatePoster()" disabled>Crop</button>
 
 </div>
 

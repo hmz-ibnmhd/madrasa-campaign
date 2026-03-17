@@ -8,7 +8,23 @@ function closeCrop(){
 document.getElementById("cropModal").style.display="none"
 }
 
-const fileInput = document.getElementById("fileInput")
+document.getElementById("fileInput").addEventListener("change", function(e){
+
+let file = e.target.files[0];
+
+if(file){
+
+let reader = new FileReader();
+
+reader.onload = function(event){
+document.getElementById("cropImage").src = event.target.result;
+};
+
+reader.readAsDataURL(file);
+
+}
+
+});
 const image = document.getElementById("cropImage")
 
 fileInput.addEventListener("change",function(e){
@@ -26,19 +42,51 @@ cropper.destroy()
 
 cropper = new Cropper(image,{
 aspectRatio:338/414,
-viewMode:1
-})
+viewMode:1,
+autoCropArea:1,
+center:true,
+background:false,
+responsive:true
+});
 
 }
 
 })
 
+let cropBtn = document.getElementById("cropBtn");
+
+document.getElementById("fileInput").onchange = function(e){
+
+let file = e.target.files[0];
+
+if(file){
+
+// button enable
+cropBtn.disabled = false;
+cropBtn.classList.add("active");
+
+}
+image.onload = function(){
+
+cropper = new Cropper(image,{
+aspectRatio:338/414,
+viewMode:1,
+autoCropArea:1
+});
+
+// button enable here
+cropBtn.disabled = false;
+cropBtn.classList.add("active");
+
+};
+}
+
 
 function generatePoster(){
 
 const cropped = cropper.getCroppedCanvas({
-width:338,
-height:414
+width:335,
+height:390
 })
 
 const photo = new Image()
@@ -58,12 +106,12 @@ canvas.height = poster.height
 ctx.drawImage(poster,0,0)
 
 let width = 385 
-let height = 516
+let height = 520
 
 /* CENTER POSITION */
 
 let x = 625
-let y = 270
+let y = 268
 
 
 
