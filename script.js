@@ -178,21 +178,38 @@ async function shareWhatsApp(){
 
 let canvas = document.getElementById("canvas");
 
+if(!canvas){
+alert("Canvas not found");
+return;
+}
+
 canvas.toBlob(async function(blob){
+
+if(!blob){
+alert("Image not ready");
+return;
+}
 
 let file = new File([blob], "poster.png", { type: "image/png" });
 
 if(navigator.share){
 
+try{
 await navigator.share({
 files: [file],
-title: "My Poster",
+title: "Poster",
 text: "Check this!"
 });
+}catch(e){
+alert("Share cancelled");
+}
 
 }else{
 
-alert("Sharing not supported in this device");
+// fallback
+let text = "Check my poster";
+let url = "https://wa.me/?text=" + encodeURIComponent(text);
+window.open(url, "_blank");
 
 }
 
