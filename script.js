@@ -85,8 +85,8 @@ cropBtn.classList.add("active");
 function generatePoster(){
 
 const cropped = cropper.getCroppedCanvas({
-width:335,
-height:390
+width:320,
+height:370
 })
 
 const photo = new Image()
@@ -106,12 +106,12 @@ canvas.height = poster.height
 ctx.drawImage(poster,0,0)
 
 let width = 385 
-let height = 520
+let height = 449
 
 /* CENTER POSITION */
 
-let x = 625
-let y = 268
+let x = 580
+let y = 518
 
 
 
@@ -148,7 +148,7 @@ name = name.substring(0,20)
 
 
 // text style
-ctx.fillStyle = "white"
+ctx.fillStyle = "#d4a017"
 ctx.font = "bold 40px Arial"
 ctx.textAlign = "center"
 
@@ -174,5 +174,30 @@ let link=document.createElement("a")
 link.href=document.getElementById("resultPoster").src
 link.download="poster.png"
 link.click()
+async function shareWhatsApp(){
+
+let canvas = document.getElementById("canvas");
+
+canvas.toBlob(async function(blob){
+
+let file = new File([blob], "poster.png", { type: "image/png" });
+
+if(navigator.share){
+
+await navigator.share({
+files: [file],
+title: "My Poster",
+text: "Check this!"
+});
+
+}else{
+
+alert("Sharing not supported in this device");
+
+}
+
+});
+
+}
 
 }
