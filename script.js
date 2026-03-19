@@ -194,7 +194,7 @@ async function shareWhatsApp(){
       await navigator.share({
         files: [file],
         title: "Poster",
-        text: "Check this!"
+        text: "عيد مبارك 🌙✨"
       });
     } else {
       // fallback (WhatsApp text മാത്രം)
