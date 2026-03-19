@@ -41,12 +41,13 @@ cropper.destroy()
 }
 
 cropper = new Cropper(image,{
-aspectRatio:338/414,
-viewMode:1,
+aspectRatio:340/420,
+viewMode:2,
 autoCropArea:1,
 center:true,
 background:false,
-responsive:true
+responsive:true,dragMode:'move',
+zoomable:true
 });
 
 }
@@ -168,53 +169,49 @@ document.getElementById("resultPage").style.display="block"
 
 
 function downloadPoster(){
+  let link = document.createElement("a");
+  link.href = document.getElementById("resultPoster").src;
+  link.download = "poster.png";
+  link.click();
+}
 
-let link=document.createElement("a")
-
-link.href=document.getElementById("resultPoster").src
-link.download="poster.png"
-link.click()
+// ✅ പുറത്തേക്ക് മാറ്റി
 async function shareWhatsApp(){
 
-let canvas = document.getElementById("canvas");
+  let canvas = document.getElementById("canvas");
 
-if(!canvas){
-alert("Canvas not found");
-return;
-}
+  if(!canvas){
+    alert("Canvas not found");
+    return;
+  }
 
-canvas.toBlob(async function(blob){
+  canvas.toBlob(async function(blob){
 
-if(!blob){
-alert("Image not ready");
-return;
-}
+    if(!blob){
+      alert("Image not ready");
+      return;
+    }
 
-let file = new File([blob], "poster.png", { type: "image/png" });
+    let file = new File([blob], "poster.png", { type: "image/png" });
 
-if(navigator.share){
+    if(navigator.share){
 
-try{
-await navigator.share({
-files: [file],
-title: "Poster",
-text: "Check this!"
-});
-}catch(e){
-alert("Share cancelled");
-}
+      try{
+        await navigator.share({
+          files: [file],
+          title: "Poster",
+          text: "Check this!"
+        });
+      }catch(e){
+        alert("Share cancelled");
+      }
 
-}else{
+    }else{
+      let text = "Check my poster";
+      let url = "https://wa.me/?text=" + encodeURIComponent(text);
+      window.open(url, "_blank");
+    }
 
-// fallback
-let text = "Check my poster";
-let url = "https://wa.me/?text=" + encodeURIComponent(text);
-window.open(url, "_blank");
-
-}
-
-});
-
-}
+  });
 
 }
