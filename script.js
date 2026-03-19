@@ -175,43 +175,35 @@ function downloadPoster(){
   link.click();
 }
 
-// ✅ പുറത്തേക്ക് മാറ്റി
 async function shareWhatsApp(){
 
-  let canvas = document.getElementById("canvas");
+  let img = document.getElementById("resultPoster");
 
-  if(!canvas){
-    alert("Canvas not found");
+  if(!img){
+    alert("Image not found");
     return;
   }
 
-  canvas.toBlob(async function(blob){
-
-    if(!blob){
-      alert("Image not ready");
-      return;
-    }
+  try{
+    let response = await fetch(img.src);
+    let blob = await response.blob();
 
     let file = new File([blob], "poster.png", { type: "image/png" });
 
     if(navigator.share){
-
-      try{
-        await navigator.share({
-          files: [file],
-          title: "Poster",
-          text: "Check this!"
-        });
-      }catch(e){
-        alert("Share cancelled");
-      }
-
-    }else{
-      let text = "Check my poster";
-      let url = "https://wa.me/?text=" + encodeURIComponent(text);
+      await navigator.share({
+        files: [file],
+        title: "Poster",
+        text: "Check this!"
+      });
+    } else {
+      // fallback (WhatsApp text മാത്രം)
+      let url = "https://wa.me/?text=" + encodeURIComponent("Check this poster");
       window.open(url, "_blank");
     }
 
-  });
+  }catch(e){
+    alert("Error sharing image");
+  }
 
 }
